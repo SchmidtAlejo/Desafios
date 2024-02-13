@@ -1,0 +1,11 @@
+[
+	{
+		"id": 2,
+		"title": "producto Testeo",
+		"description": "descripcion cambiada",
+		"price": 200,
+		"thumbnail": "Sin imagen 2",
+		"code": "cdf456",
+		"stock": 25
+	}
+]
