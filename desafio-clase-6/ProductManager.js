@@ -18,13 +18,16 @@ class ProductManager {
     }
 
     getProductById(id) {
-        const products = this.getProducts();
-        const product = products.find(product => product.id === Number.parseInt(id));
-        if (!product) {
-            console.log("The product doesn´t exist");
+        try {
+            const products = this.getProducts();
+            const product = products.find(product => product.id === Number.parseInt(id));
+            if (!product) {
+                console.log("The product doesn´t exist");
+            }
+            return product
+        } catch (error) {
+            console.error(error);
         }
-
-        return product
     }
 
     writeFile(products) {
