@@ -10,8 +10,7 @@ class ProductManager {
 
     getProducts(limit) {
         try {
-            const data = JSON.parse(fs.readFileSync("archivos.json", { encoding: "utf-8" }));
-            return data.slice(0, limit);
+            return JSON.parse(fs.readFileSync("archivos.json", { encoding: "utf-8" }));
         } catch (error) {
             fs.writeFileSync(this.path, JSON.stringify([], null, "\t"));
             return [];

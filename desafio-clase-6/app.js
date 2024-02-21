@@ -75,7 +75,12 @@ app.get("/", (req, res) => {
 })
 
 app.get("/products", (req, res) => {
-    console.log(productManager.getProducts(req.query.limit));
+    const products = productManager.getProducts();
+    if (req.query.limit === undefined) {
+        console.log(products);
+        return
+    }
+    console.log(products.slice(0, req.query.limit));
     res.send("Ok")
 });
 
