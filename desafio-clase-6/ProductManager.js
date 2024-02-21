@@ -5,21 +5,22 @@ const fs = require('fs');
 
 class ProductManager {
     constructor(path) {
-        this.idManager = 1;
-        this.path = path;
+        this.path = path
     }
 
-    getProducts() {
+    getProducts(limit) {
         try {
-            return JSON.parse(fs.readFileSync("archivos.json", { encoding: "utf-8" }))
+            const data = JSON.parse(fs.readFileSync("archivos.json", { encoding: "utf-8" }));
+            return data.slice(0, limit);
         } catch (error) {
             fs.writeFileSync(this.path, JSON.stringify([], null, "\t"));
+            return [];
         }
     }
 
     getProductById(id) {
         const products = this.getProducts();
-        const product = products.find(product => product.id === id)
+        const product = products.find(product => product.id === Number.parseInt(id));
         if (!product) {
             console.log("The product doesn´t exist");
         }
@@ -48,7 +49,7 @@ class ProductManager {
         }
 
         products.push({
-            id: this.idManager,
+            id: products.length > 0 ? products.length + 1 : 1,
             title,
             description,
             price,
@@ -58,8 +59,6 @@ class ProductManager {
         });
 
         this.writeFile(products);
-
-        this.idManager++;
     }
 
     getIndex(id) {
@@ -89,33 +88,4 @@ class ProductManager {
     }
 }
 
-const productManager = new ProductManager("archivos.json");
-
-const product1 = {
-    title: "producto prueba",
-    description: "Este es un producto prueba",
-    price: 200,
-    thumbnail: "Sin imagen",
-    code: "abc123",
-    stock: 25
-}
-
-const product2 = {
-    title: "producto Testeo",
-    description: "Este es un producto Testeo",
-    price: 200,
-    thumbnail: "Sin imagen 2",
-    code: "cdf456",
-    stock: 25
-}
-
-console.log(productManager.getProducts());
-productManager.addProduct(product1)
-console.log(productManager.getProducts());
-productManager.addProduct(product1)
-console.log(productManager.getProducts());
-productManager.addProduct(product2)
-console.log(productManager.getProducts());
-console.log(productManager.getProductById(2));
-productManager.updateProduct(2, { description: "descripcion cambiada" });
-productManager.deleteProduct(1);
+module.exports = ProductManager;
