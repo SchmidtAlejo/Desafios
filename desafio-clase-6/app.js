@@ -77,16 +77,13 @@ app.get("/", (req, res) => {
 app.get("/products", (req, res) => {
     const products = productManager.getProducts();
     if (req.query.limit === undefined) {
-        console.log(products);
-        return
+        res.send(products)
     }
-    console.log(products.slice(0, req.query.limit));
-    res.send("Ok")
+    res.send(products.slice(0, req.query.limit))
 });
 
 app.get("/products/:id", async (req, res) => {
-    console.log(await productManager.getProductById(req.params.id));
-    res.send("Ok")
+    res.send(await productManager.getProductById(req.params.id))
 });
 
 app.listen(PORT, () => {
