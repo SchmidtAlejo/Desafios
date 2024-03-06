@@ -1,0 +1,32 @@
+<div>
+  <ul id="productList">
+    {{#each products}}
+      <li>{{this.title}}, ${{this.price}} ID: {{this.id}}</li>
+    {{/each}}
+  </ul>
+  <form id="productForm" method="POST">
+    <input type="text" id="title" name="title" placeholder="title" />
+    <input
+      type="text"
+      id="description"
+      name="description"
+      placeholder="description"
+    />
+    <input type="text" id="price" name="price" placeholder="price" />
+    <input type="text" id="code" name="code" placeholder="code" />
+    <input type="text" id="stock" name="stock" placeholder="stock" />
+
+    <button type="submit">Agregar Producto</button>
+  </form>
+  <form id="deleteForm" method="DELETE">
+    <input
+      type="number"
+      id="productId"
+      name="pid"
+      placeholder="ID del Producto a Eliminar"
+    />
+    <button type="submit">Eliminar Producto</button>
+  </form>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

@@ -1,0 +1,83 @@
+[
+	{
+		"id": 1,
+		"title": "producto prueba",
+		"description": "Este es un producto prueba",
+		"price": 200,
+		"thumbnail": "Sin imagen",
+		"code": "abc123",
+		"stock": 25
+	},
+	{
+		"id": 2,
+		"title": "producto Testeo",
+		"description": "Este es un producto Testeo",
+		"price": 200,
+		"thumbnail": "Sin imagen 2",
+		"code": "cdf456",
+		"stock": 25
+	},
+	{
+		"id": 3,
+		"title": "producto Testeo 3",
+		"description": "Este es un producto Testeo 3",
+		"price": 200,
+		"thumbnail": "Sin imagen 3",
+		"code": "cdf45a6",
+		"stock": 25
+	},
+	{
+		"id": 4,
+		"title": "producto Testeo 4",
+		"description": "Este es un producto Testeo 4",
+		"price": 200,
+		"thumbnail": "Sin imagen 4",
+		"code": "cdfdas456",
+		"stock": 25
+	},
+	{
+		"id": 5,
+		"title": "producto Testeo 5",
+		"description": "Este es un producto Teste 5o",
+		"price": 200,
+		"thumbnail": "Sin imagen 5",
+		"code": "cdf56",
+		"stock": 25
+	},
+	{
+		"id": 6,
+		"title": "producto Testeo 6",
+		"description": "Este es un producto Testeo 6",
+		"price": 200,
+		"thumbnail": "Sin imagen 6",
+		"code": "cddasda56",
+		"stock": 25
+	},
+	{
+		"id": 7,
+		"title": "producto Testeo 7",
+		"description": "Este es un producto Testeo 7",
+		"price": 200,
+		"thumbnail": [],
+		"code": "cddasda5ada",
+		"stock": 25
+	},
+	{
+		"id": 8,
+		"title": "dasdadsadas",
+		"description": "dasdasdsad",
+		"price": "1",
+		"thumbnail": [],
+		"code": "1231231",
+		"stock": "1"
+	},
+	{
+		"id": 9,
+		"title": "dasdad",
+		"description": "adsadasda",
+		"price": "131",
+		"thumbnail": [],
+		"code": "12321313123131",
+		"stock": "12121"
+	}
+]
