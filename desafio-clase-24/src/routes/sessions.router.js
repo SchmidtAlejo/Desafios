@@ -1,8 +1,6 @@
 import { Router } from 'express';
 import passport from 'passport';
 const router = Router()
-
-
 router.post('/login', passport.authenticate('login', { failureRedirect: '/login?error=Error 500 - error' }), (req, res) => {
     let user = req.user
 
@@ -55,5 +53,14 @@ router.get("/errorGitHub", (req, res) => {
     res.redirect('/login?error=Error 500 - error')
 
 })
+
+router.get('/current', (req, res) => {
+    if (req.session.user) {
+        res.send({ user: req.session.user })
+    }
+    else {
+        res.send({ user: null })
+    }
+});
 
 export default router;
