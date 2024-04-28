@@ -11,7 +11,7 @@ const LocalStrategy = local.Strategy;
 
 const passportInit = () => {
     passport.use('signup', new LocalStrategy({ passReqToCallback: true, usernameField: 'email' }, async (req, username, password, done) => {
-        const { email } = req.body;
+        const { email, first_name, last_name, age } = req.body;
         try {
             const user = await modelUser.findOne({ email });
             if (user) {
@@ -19,8 +19,13 @@ const passportInit = () => {
             }
             const newUser = {
                 email,
+                first_name,
+                last_name,
+                age: Number.parseInt(age),
+                role: 'user',
                 password: createHash(password)
             };
+            console.log(newUser);
             const result = await modelUser.create(newUser);
             return done(null, result);
         }

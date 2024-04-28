@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
-const router = Router()
+const router = Router();
+
 router.post('/login', passport.authenticate('login', { failureRedirect: '/login?error=Error 500 - error' }), (req, res) => {
     let user = req.user
 
@@ -19,7 +20,7 @@ router.post('/login', passport.authenticate('login', { failureRedirect: '/login?
 })
 
 router.post('/signup', passport.authenticate('signup', { failureRedirect: '/signup?error=Error 500 - error' }), (req, res) => {
-    return res.redirect(`/signup?message=Signup successful to ${req.user.name}`)
+    return res.redirect(`/signup?message=Signup successful`)
 })
 
 router.get('/logout', (req, res) => {
@@ -54,12 +55,14 @@ router.get("/errorGitHub", (req, res) => {
 
 })
 
-router.get('/current', (req, res) => {
+router.get('/current', async (req, res) => {
     if (req.session.user) {
-        res.send({ user: req.session.user })
+        let user = { ...req.user }
+        delete user.password
+        res.send({ user });
     }
     else {
-        res.send({ user: null })
+        res.send({ user: null });
     }
 });
 
