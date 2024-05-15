@@ -9,7 +9,19 @@ class ProductsController {
         req.query.category,
         req.query.sort
       );
-      res.success(products);
+      const payload = {
+        status: "success",
+        payload: products.docs,
+        totalPages: products.totalPages,
+        prevPage: products.prevPage || null,
+        nextPage: products.nextPage || null,
+        page: products.page,
+        hasPrevPage: products.hasPrevPage,
+        hasPrevPage: products.hasNextPage,
+        prevLink: products.hasPrevPage ? `http://localhost:8080/api/products?page=${products.prevPage}` : null,
+        nextLink: products.hasNextPage ? `http://localhost:8080/api/products?page=${products.nextPage}` : null,
+      }
+      res.success(payload);
     } catch (error) {
       res.error500(error.message);
     }
