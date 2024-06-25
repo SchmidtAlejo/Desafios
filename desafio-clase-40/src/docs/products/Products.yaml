@@ -1,0 +1,170 @@
+paths:
+  /api/products:
+    get:
+      summary: Get all products
+      description: Get a list of all products
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: limit
+          required: false
+          schema:
+            type: number
+        - in: path
+          name: page
+          required: false
+          schema:
+            type: number
+        - in: path
+          name: category
+          required: false
+          schema:
+            type: string
+        - in: path
+          name: sort
+          required: false
+          description: 1 to order ascendent, -1 to order descendent
+          schema:
+            type: number
+      responses:
+        200:
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+        500:
+          description: Internal Server Error
+    post:
+      summary: Create a new product
+      description: Create a new product
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        400:
+          description: Bad Request
+        500:
+          description: Internal Server Error
+  /api/products/{id}:
+    get:
+      summary: Get a product by ID
+      description: Get a product by ID
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: A product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        404:
+          description: Not Found
+        500:
+          description: Internal Server Error
+    put:
+      summary: Update a product by ID
+      description: Update a product by ID
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        200:
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        400:
+          description: Bad Request
+        404:
+          description: Not Found
+        500:
+          description: Internal Server Error
+    delete:
+      summary: Delete a product by ID
+      description: Delete a product by ID
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: No Content
+        404:
+          description: Not Found
+        500:
+          description: Internal Server Error
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - id
+        - title
+        - price
+        - description
+        - thumbnail
+        - category
+        - stock
+        - owner
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        category:
+          type: string
+        thumbnail:
+          type: string
+        stock:
+          type: number
+        owner:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  security:
+    - bearerAuth: []
