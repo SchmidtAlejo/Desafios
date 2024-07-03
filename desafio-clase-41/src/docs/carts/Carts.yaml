@@ -1,0 +1,217 @@
+paths:
+  /api/carts:
+    post:
+      summary: Create a new Cart
+      description: Create a new Cart
+      tags:
+        - Carts
+      responses:
+        200:
+          description: Cart created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+  /api/carts/{cid}:
+    get:
+      summary: Get a Cart by id
+      description: Get a Cart by id
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          schema:
+            type: string
+          required: true
+          description: Cart id
+      responses:
+        200:
+          description: Cart found
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/Cart"
+        400:
+          description: Bad request
+        404:
+          description: Cart not found
+        500:
+          description: Internal server error
+  /{cid}/product/{pid}:
+    post:
+      summary: Add a product to a Cart
+      description: Add a product to a Cart
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          schema:
+            type: string
+          required: true
+          description: Cart id
+        - in: path
+          name: pid
+          schema:
+            type: string
+          required: true
+          description: Product id
+      requestBody:
+        description: Quantity
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: number
+                  description: Quantity
+                  example: 1
+      responses:
+        200:
+          description: Product added to Cart
+        400:
+          description: Bad request
+        404:
+          description: Cart or Product not found
+        500:
+          description: Internal server error
+    delete:
+      summary: Delete a product from a Cart
+      description: Delete a product from a Cart
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          schema:
+            type: string
+          required: true
+          description: Cart id
+        - in: path
+          name: pid
+          schema:
+            type: string
+          required: true
+          description: Product id
+      responses:
+        200:
+          description: Product deleted from Cart
+        400:
+          description: Bad request
+        404:
+          description: Cart or Product not found
+        500:
+          description: Internal server error
+      put:
+        summary: Update a product quantity in a Cart
+        description: Update a product quantity in a Cart
+        tags:
+          - Carts
+        parameters:
+          - in: path
+            name: cid
+            schema:
+              type: string
+            required: true
+            description: Cart id
+          - in: path
+            name: pid
+            schema:
+              type: string
+            required: true
+            description: Product id
+        requestBody:
+          description: Quantity
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  quantity:
+                    type: number
+                    description: Quantity
+                    example: 1
+        responses:
+          200:
+            description: Product quantity updated in Cart
+          400:
+            description: Bad request
+          404:
+            description: Cart or Product not found
+          500:
+            description: Internal server error
+  /{cid}/products:
+    get:
+      summary: Get all products from a Cart
+      description: Get all products from a Cart
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          schema:
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Cart id
+          example: 63c41149d4490228098080
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                $ref: "#/components/schemas/Product"
+              quantity:
+                type: number
+                description: Quantity
+                example: 1
+    Product:
+      type: object
+      required:
+        - id
+        - title
+        - price
+        - description
+        - thumbnail
+        - category
+        - stock
+        - owner
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        category:
+          type: string
+        thumbnail:
+          type: string
+        stock:
+          type: number
+        owner:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  security:
+    - bearerAuth: []
