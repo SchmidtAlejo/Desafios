@@ -42,16 +42,18 @@ export class CustomRouter {
   }
 
   customResponses(req, res, next) {
-    //   res.success = (response) => {
-    //     res.setHeader('Content-Type', 'application/json');
-    //     return res.status(200).json({
-    //       payload: response
-    //     });
-    //   }
 
-    res.success = (respuesta, objetoNuevo) => {
+    res.successCreate = (response) => {
       res.setHeader('Content-Type', 'application/json');
-      return res.status(201).json({ message: respuesta, newEntity: objetoNuevo });
+      return res.status(201).json({ message: response });
+    }
+
+    res.success = (response) => {
+      console.log("1");
+      res.setHeader('Content-Type', 'application/json');
+      return res.status(200).json({
+        message: response
+      });
     }
 
     res.badRequest = (error) => {

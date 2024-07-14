@@ -7,7 +7,7 @@ class CartsController {
   static createCart = async (req, res) => {
     try {
       const cart = (await CartsService.createCart(req.user._id));
-      res.success(cart);
+      res.successCreate(cart);
     } catch (error) {
       res.badRequest(error.message);
     }
